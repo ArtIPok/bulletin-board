@@ -9,10 +9,12 @@ import clsx from 'clsx';
 import styles from './PostAdd.module.scss';
 
 const Component = ({ className, children }) => {
-  <div className={clsx(className, styles.root)}>
-    <h2>PostAdd</h2>
-    {children}
-  </div>;
+  return (
+    <div className={clsx(className, styles.root)}>
+      <h2>PostAdd</h2>
+      {children}
+    </div>
+  );
 };
 
 Component.propTypes = {
