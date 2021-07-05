@@ -12,17 +12,17 @@ import Fab from '@material-ui/core/Fab';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-// import { reduxSelector, reduxActionCreator } from '../../../redux/cos';
+import { getAll, fetchPublished } from '../../../redux/postsRedux';
+import { getStatus } from '../../../redux/userSwitcherRedux';
 
 import styles from './Homepage.module.scss';
 // import { PostAdd } from '@material-ui/icons';
 // import { NotFound } from '../NotFound/NotFound';
 
-const Component = ({ className, logged, postTitle }) => {
+const Component = ({ className, userStatus, postTitle }) => {
   return (
     <div className={clsx(className, styles.root)}>
-      <h2>Homepage</h2>
-      {logged
+      {userStatus
         ? (
           // <Button
           //   className={styles.button}
@@ -59,17 +59,17 @@ const Component = ({ className, logged, postTitle }) => {
 Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  logged: PropTypes.bool,
+  userStatus: PropTypes.bool,
   postTitle:PropTypes.string,
 };
 
 const mapStateToProps = state => ({
-  logged: state.user.logged,
-  postTitle: state.posts.data.title,
+  posts: getAll(state),
+  userStatus: getStatus(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-//   someAction: arg => dispatch(reduxActionCreator(arg)),
+  fetchPublishedPosts: () => dispatch(fetchPublished()),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
