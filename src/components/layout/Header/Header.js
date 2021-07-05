@@ -18,7 +18,7 @@ import styles from './Header.module.scss';
 
 class Component extends React.Component {
   handleOnChange = (event) => {
-    const { getUserStatus, user } = this.props;
+    const { user } = this.props;
 
     if (event === 'true') {
       user.active = true;
@@ -84,8 +84,7 @@ Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   userStatus: PropTypes.bool,
-  user: PropTypes.string,
-  getUserStatus: PropTypes.string,
+  user: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({

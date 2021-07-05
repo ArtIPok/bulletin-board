@@ -42,7 +42,7 @@ class Component extends React.Component {
 Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  user: PropTypes.string,
+  user: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
