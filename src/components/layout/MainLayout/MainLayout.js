@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { HeaderContainer } from '../Header/Header';
+import { Header } from '../Header/Header';
+import { Switcher } from '../../common/Switcher';
 
 import clsx from 'clsx';
 
@@ -14,7 +15,8 @@ const Component = ({ className, children }) => {
   return (
     <div className={clsx(className, styles.root)}>
       <div className={styles.container}>
-        <HeaderContainer className={styles.header} />
+        <Switcher className={styles.switcher} />
+        <Header className={styles.header} />
 
         {children}
       </div>

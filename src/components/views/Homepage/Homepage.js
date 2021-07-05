@@ -75,7 +75,7 @@ const mapDispatchToProps = dispatch => ({
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
-  Component as Homepage,
-  Container as HomepageContainer,
+  // Component as Homepage,
+  Container as Homepage,
   Component as HomepageComponent,
 };

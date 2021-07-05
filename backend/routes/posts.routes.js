@@ -17,7 +17,7 @@ router.get('/posts', async (req, res) => {
   }
 });
 
-router.get('/posts/:id', async (req, res) => {
+router.get('/post/:id', async (req, res) => {
   try {
     const result = await Post
       .findById(req.params.id);
@@ -29,7 +29,7 @@ router.get('/posts/:id', async (req, res) => {
   }
 });
 
-router.post('/posts/add', async (req, res) => {
+router.post('/post/add', async (req, res) => {
   try {
     const {
       author,
@@ -79,7 +79,7 @@ router.post('/posts/add', async (req, res) => {
         location: escape(location),
       });
       await newPost.save();
-      res.json({ message: 'OK' });
+      res.json({ newPost });
     } else {
       throw new Error('Wrong input!');
     }
