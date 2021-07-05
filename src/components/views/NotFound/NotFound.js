@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 // import clsx from 'clsx';
 
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/cos';
 
 import { Link } from 'react-router-dom';
@@ -44,18 +44,18 @@ Component.propTypes = {
   className: PropTypes.string,
 };
 
-// const mapStateToProps = state => ({
-//   someeProp: reduxSelector(state),
-// });
+const mapStateToProps = state => ({
+  logged: state.user.logged,
+});
 
-// const mapDispatchToProps = dispatch => ({
-//   someAction: arg => dispatch(reduxActionCreator(arg)),
-// });
+const mapDispatchToProps = dispatch => ({
+  // someAction: arg => dispatch(reduxActionCreator(arg)),
+});
 
-// const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
   Component as NotFound,
-  // Container as NotFound,
+  Container as NotFoundContainer,
   Component as NotFoundComponent,
 };
