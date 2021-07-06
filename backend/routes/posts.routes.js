@@ -71,12 +71,12 @@ router.post('/post/add', async (req, res) => {
         created: created,
         updated: updated,
         status: status,
-        title: escape(title),
-        text: escape(text),
+        title: title,
+        text: text,
         photo: photo,
         price: price,
         phone: phone,
-        location: escape(location),
+        location: location,
       });
       await newPost.save();
       res.json({ newPost });

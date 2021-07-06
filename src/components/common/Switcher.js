@@ -11,7 +11,7 @@ import { getUserStatus } from '../../redux/userSwitcherRedux.js';
 
 class Component extends React.Component {
   handleOnChange = (event) => {
-    const { user } = this.props;
+    const { getUserStatus, user } = this.props;
 
     if (event === 'true') {
       user.active = true;
@@ -43,6 +43,7 @@ Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   user: PropTypes.object,
+  getUserStatus: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
