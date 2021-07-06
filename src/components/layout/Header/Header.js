@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AUTH_URL } from '../../../config';
+import { AUTH_URL, GOOGLE_URL } from '../../../config';
 import { Link } from 'react-router-dom';
 
 import clsx from 'clsx';
@@ -64,7 +64,7 @@ class Component extends React.Component {
                   <Button
                     color='inherit'
                     variant='outlined'
-                    href={`${AUTH_URL}/google`}
+                    href={`${GOOGLE_URL}`}
                     className={styles.login}
                     value='true'
                     onClick={(event) => this.handleOnChange(event.target.value)}

@@ -50,7 +50,7 @@ export const addPostRequest = (data) => {
   return (dispatch) => {
     dispatch(fetchStarted());
     console.log('data', data);
-    Axios.post(`${API_URL}/posts/add`, data, {
+    Axios.post(`${API_URL}/post/add`, data, {
       headers: {
         'content-type': 'multipart/form-data',
       },
@@ -67,7 +67,7 @@ export const addPostRequest = (data) => {
 export const editPostRequest = (data) => {
   return async (dispatch) => {
     dispatch(fetchStarted());
-    Axios.put(`${API_URL}/posts/${data._id}/edit`, data)
+    Axios.put(`${API_URL}/post/${data._id}/edit`, data)
       .then((res) => {
         dispatch(editPost(data));
       })
