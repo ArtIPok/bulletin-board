@@ -2,10 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
-// import Paper from '@material-ui/core/Paper';
-// import Button from '@material-ui/core/Button';
-// import Grid from '@material-ui/core/Grid';
-// import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 
 
@@ -15,52 +11,66 @@ import { connect } from 'react-redux';
 import { getAll, fetchPublished } from '../../../redux/postsRedux';
 import { getStatus } from '../../../redux/userSwitcherRedux';
 
-import styles from './Homepage.module.scss';
-// import { PostAdd } from '@material-ui/icons';
-// import { NotFound } from '../NotFound/NotFound';
+import { PostBox } from '../../features/PostBox';
 
-const Component = ({ className, userStatus, postTitle }) => {
-  return (
-    <div className={clsx(className, styles.root)}>
-      {userStatus
-        ? (
-          // <Button
-          //   className={styles.button}
-          //   variant='contained'
-          //   color='primary'
-          //   component={Link}
-          //   to={'/post/add'}
-          // >
-          // Add post
-          // </Button>
-          <div className={styles.buttonAdd}>
-            <Link to={'/post/add'} variant='subtitle1' color='primary'>
-              <Fab
-                size='small'
-                color='primary'
-                aria-label='add'
-                variant='extended'
-              >
-                Add new add
-              </Fab>
-            </Link>
-          </div>
-        )
-        : null
-      }
-      <div>
-        {postTitle}
+import styles from './Homepage.module.scss';
+
+class Component extends React.Component {
+  componentDidMount() {
+    const { fetchPublishedPosts } = this.props;
+    fetchPublishedPosts();
+  }
+  componentDidUpdate(prevProps) {
+    const { fetchPublishedPosts, posts } = this.props;
+    if (posts === {} || posts !== prevProps.posts) {
+      fetchPublishedPosts();
+    }
+  }
+
+  render() {
+    const { posts, className, userStatus } = this.props;
+    return (
+      <div className={clsx(className, styles.root)}>
+        {userStatus
+          ? (
+            <div className={styles.buttonAdd}>
+              <Link to={'/post/add'} variant='subtitle1' color='primary'>
+                <Fab
+                  size='small'
+                  color='primary'
+                  aria-label='add'
+                  variant='extended'
+                >
+                  Add new post
+                </Fab>
+              </Link>
+            </div>
+          )
+          : null
+        }
+        {posts.map((post) => (
+          <PostBox
+            photo = {post.photo}
+            title = {post.title}
+            created = {post.created}
+            updated = {post.updated}
+            text = {post.text}
+            id = {post._id}
+            userStatus = {userStatus}
+          />
+        ))}
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 
 Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   userStatus: PropTypes.bool,
-  postTitle:PropTypes.string,
+  posts: PropTypes.array,
+  fetchPublishedPosts: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
