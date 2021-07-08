@@ -48,15 +48,16 @@ class Component extends React.Component {
           )
           : null
         }
-        {posts.map((post) => (
+        {posts.map(post => (
           <PostBox
-            photo = {post.photo}
-            title = {post.title}
-            created = {post.created}
-            updated = {post.updated}
-            text = {post.text}
-            id = {post._id}
-            userStatus = {userStatus}
+            key={post.id}
+            photo={post.photo}
+            title={post.title}
+            created={post.created}
+            updated={post.updated}
+            text={post.text}
+            id={post._id}
+            userStatus={userStatus}
           />
         ))}
       </div>
