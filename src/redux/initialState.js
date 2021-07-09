@@ -1,15 +1,15 @@
 export const initialState = {
   posts: {
-    data: {
-      id: '1',
-      author: 'John Doe',
-      title: 'Title post',
-      text1: 'This is my post',
-      location: 'Lorem ipsum',
-      price: '250 $',
-      phone: '222 333 444',
-      status: 'active',
-    },
+    data: [{
+      id: '',
+      className: '',
+      photo: '',
+      title: 'Artur',
+      created: '2021-07-09',
+      updated: '2021-07-09',
+      text: 'Lorem ipsum',
+      userStatus: '',
+    }],
     loading: {
       active: false,
       error: false,

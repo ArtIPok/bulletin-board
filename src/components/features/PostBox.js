@@ -20,7 +20,7 @@ import { getStatus } from '../../../src/redux/userSwitcherRedux';
 
 import styles from './PostBox.module.scss';
 
-const Component = ({
+const Component = (
   className,
   photo,
   title,
@@ -29,7 +29,7 @@ const Component = ({
   text,
   id,
   userStatus,
-}) => (
+) => (
   <div className={clsx(className, styles.root)}>
     <Paper key={id} className={styles.component} elevation={9}>
       <Grid container spacing={3} alignContent='center' justify='center'>

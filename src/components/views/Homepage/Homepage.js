@@ -50,7 +50,7 @@ class Component extends React.Component {
         }
         {posts.map(post => (
           <PostBox
-            key={post.id}
+            key={post._id}
             photo={post.photo}
             title={post.title}
             created={post.created}
@@ -71,7 +71,7 @@ Component.propTypes = {
   className: PropTypes.string,
   userStatus: PropTypes.bool,
   posts: PropTypes.array,
-  fetchPublishedPosts: PropTypes.object,
+  fetchPublishedPosts: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
