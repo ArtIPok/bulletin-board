@@ -31,11 +31,11 @@ export const fetchPublished = () => {
   return (dispatch, getState) => {
     const { posts } = getState();
 
-    if (posts.data.length === 0 || posts.loading.active === 'false') {
+    if (posts.data.length < 1 || posts.loading.active === 'false') {
       dispatch(fetchStarted());
 
       Axios
-        .get(`${API_URL}/api/posts`)
+        .get(`${API_URL}/posts`)
         .then(res => {
           dispatch(fetchSuccess(res.data));
         })
