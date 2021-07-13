@@ -17,8 +17,11 @@ import IconButton from '@material-ui/core/IconButton';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getOne, fetchOnePostFromAPI } from '../../../redux/postsRedux.js';
+import { getOne, fetchOnePostFromAPI, getLoadingState } from '../../../redux/postsRedux.js';
 import { getStatus } from '../../../redux/userSwitcherRedux.js';
+
+import { Loading } from '../../common/Loading/Loading';
+import { Error } from '../../common/Error/Error';
 
 import styles from './Post.module.scss';
 
@@ -28,89 +31,103 @@ class Component extends React.Component {
     fetchPost();
   }
   render() {
-    const { className, _id, userStatus, photo, title, created, updated, text, status, price, author, phone, location } = this.props;
-    return (
-      <div className={clsx(className, styles.root)}>
-        <Paper className={styles.component} elevation={9}>
-          <Grid container spacing={3} alignContent='center' justify='center'>
-            <Grid item xs={12} sm={5}>
-              <div className={styles.photoWrapper}>
-                <img src={photo} alt={title} />
-              </div>
-              <CardActions className={styles.actions}>
-                <IconButton aria-label='add to favorites'>
-                  <FavoriteIcon />
-                </IconButton>
-                <IconButton aria-label='share'>
-                  <ShareIcon />
-                </IconButton>
-                {userStatus
-                  ? (
-                    <div className={styles.linkWrapper}>
-                      <Link
-                        to={`/post/${_id}/edit`}
-                        variant='subtitle1'
-                        color='secondary'
-                      >
-                        <Fab
-                          size='small'
-                          color='secondary'
-                          aria-label='add'
-                          variant='extended'
-                        >
-                          Edit post
-                        </Fab>
-                      </Link>
-                    </div>
-                  ) : null
-                }
-              </CardActions>
-            </Grid>
-            <Grid item xs={12} sm={7}>
-              <Card className={styles.card}>
-                <CardHeader
-                  title={title}
-                  className={styles.card__header}
-                  subheader={`Publication date: ${created},last update: ${updated}`}
-                />
-                <CardContent className={styles.card__content}>
-                  <Typography
-                    variant='body2'
-                    color='textSecondary'
-                    component='p'
-                    className={styles.text}
-                  >
-                    {text}
-                  </Typography>
-                  <Typography paragraph>
-                    {' '}
-                    <b>Status: </b>
-                    {status}
-                  </Typography>
-                  <Typography paragraph>
-                    {' '}
-                    <b>Price: </b>
-                    {price} EUR
-                  </Typography>
-                  <Typography paragraph>
-                    <b>Author: </b>
-                    {author}
-                  </Typography>
-                  <Typography paragraph>
-                    <b>Phone: </b>
-                    {phone}
-                  </Typography>
-                  <Typography paragraph>
-                    <b>Location: </b>
-                    {location}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
+    const { loading: { active, error }, className, _id, userStatus, photo, title, created, updated, text, status, price, author, phone, location } = this.props;
+    if (active) {
+      return (
+        <Paper className={styles.component}>
+          <Loading />
         </Paper>
-      </div>
-    );
+      );
+    } else if (error) {
+      return (
+        <Paper className={styles.component}>
+          <Error>{error}</Error>
+        </Paper>
+      );
+    } else {
+      return (
+        <div className={clsx(className, styles.root)}>
+          <Paper className={styles.component} elevation={9}>
+            <Grid container spacing={3} alignContent='center' justify='center'>
+              <Grid item xs={12} sm={5}>
+                <div className={styles.photoWrapper}>
+                  <img src={photo} alt={title} />
+                </div>
+                <CardActions className={styles.actions}>
+                  <IconButton aria-label='add to favorites'>
+                    <FavoriteIcon />
+                  </IconButton>
+                  <IconButton aria-label='share'>
+                    <ShareIcon />
+                  </IconButton>
+                  {userStatus
+                    ? (
+                      <div className={styles.linkWrapper}>
+                        <Link
+                          to={`/post/${_id}/edit`}
+                          variant='subtitle1'
+                          color='secondary'
+                        >
+                          <Fab
+                            size='small'
+                            color='secondary'
+                            aria-label='add'
+                            variant='extended'
+                          >
+                            Edit post
+                          </Fab>
+                        </Link>
+                      </div>
+                    ) : null
+                  }
+                </CardActions>
+              </Grid>
+              <Grid item xs={12} sm={7}>
+                <Card className={styles.card}>
+                  <CardHeader
+                    title={title}
+                    className={styles.card__header}
+                    subheader={`Publication date: ${created},last update: ${updated}`}
+                  />
+                  <CardContent className={styles.card__content}>
+                    <Typography
+                      variant='body2'
+                      color='textSecondary'
+                      component='p'
+                      className={styles.text}
+                    >
+                      {text}
+                    </Typography>
+                    <Typography paragraph>
+                      {' '}
+                      <b>Status: </b>
+                      {status}
+                    </Typography>
+                    <Typography paragraph>
+                      {' '}
+                      <b>Price: </b>
+                      {price} EUR
+                    </Typography>
+                    <Typography paragraph>
+                      <b>Author: </b>
+                      {author}
+                    </Typography>
+                    <Typography paragraph>
+                      <b>Phone: </b>
+                      {phone}
+                    </Typography>
+                    <Typography paragraph>
+                      <b>Location: </b>
+                      {location}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+          </Paper>
+        </div>
+      );
+    }
   }
 }
 
@@ -130,11 +147,13 @@ Component.propTypes = {
   phone: PropTypes.string,
   location: PropTypes.string,
   _id: PropTypes.string,
+  loading: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
   post: getOne(state),
   userStatus: getStatus(state),
+  loading: getLoadingState,
 });
 
 const mapDispatchToProps = (dispatch, props) => ({

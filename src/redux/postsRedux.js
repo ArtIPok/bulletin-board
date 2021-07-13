@@ -7,6 +7,7 @@ export const getOne = ({ posts }) => posts.onePost;
 export const getPostById = ({ posts }, _id) => {
   return posts.data.filter((post) => post._id === _id)[0];
 };
+export const getLoadingState = ({ posts }) => posts.loading;
 
 /* action name creator */
 const reducerName = 'posts';
