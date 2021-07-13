@@ -28,14 +28,14 @@ class Component extends React.Component {
     fetchPost();
   }
   render() {
-    const { className, post, userStatus } = this.props;
+    const { className, _id, userStatus, photo, title, created, updated, text, status, price, author, phone, location } = this.props;
     return (
       <div className={clsx(className, styles.root)}>
         <Paper className={styles.component} elevation={9}>
           <Grid container spacing={3} alignContent='center' justify='center'>
             <Grid item xs={12} sm={5}>
               <div className={styles.photoWrapper}>
-                <img src={post.photo} alt={post.title} />
+                <img src={photo} alt={title} />
               </div>
               <CardActions className={styles.actions}>
                 <IconButton aria-label='add to favorites'>
@@ -48,7 +48,7 @@ class Component extends React.Component {
                   ? (
                     <div className={styles.linkWrapper}>
                       <Link
-                        to={`/post/${post._id}/edit`}
+                        to={`/post/${_id}/edit`}
                         variant='subtitle1'
                         color='secondary'
                       >
@@ -69,9 +69,9 @@ class Component extends React.Component {
             <Grid item xs={12} sm={7}>
               <Card className={styles.card}>
                 <CardHeader
-                  title={post.title}
+                  title={title}
                   className={styles.card__header}
-                  subheader={`Publication date: ${post.created},last update: ${post.updated}`}
+                  subheader={`Publication date: ${created},last update: ${updated}`}
                 />
                 <CardContent className={styles.card__content}>
                   <Typography
@@ -80,29 +80,29 @@ class Component extends React.Component {
                     component='p'
                     className={styles.text}
                   >
-                    {post.text}
+                    {text}
                   </Typography>
                   <Typography paragraph>
                     {' '}
                     <b>Status: </b>
-                    {post.status}
+                    {status}
                   </Typography>
                   <Typography paragraph>
                     {' '}
                     <b>Price: </b>
-                    {post.price} EUR
+                    {price} EUR
                   </Typography>
                   <Typography paragraph>
                     <b>Author: </b>
-                    {post.author}
+                    {author}
                   </Typography>
                   <Typography paragraph>
                     <b>Phone: </b>
-                    {post.phone}
+                    {phone}
                   </Typography>
                   <Typography paragraph>
                     <b>Location: </b>
-                    {post.location}
+                    {location}
                   </Typography>
                 </CardContent>
               </Card>
@@ -119,6 +119,17 @@ Component.propTypes = {
   fetchPost: PropTypes.func,
   userStatus: PropTypes.bool,
   post: PropTypes.array,
+  photo: PropTypes.string,
+  title: PropTypes.string,
+  created: PropTypes.string,
+  updated: PropTypes.string,
+  text: PropTypes.string,
+  status: PropTypes.string,
+  price: PropTypes.string,
+  author: PropTypes.string,
+  phone: PropTypes.string,
+  location: PropTypes.string,
+  _id: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
