@@ -27,11 +27,11 @@ const Component = ({
   created,
   updated,
   text,
-  _id,
+  id,
   userStatus,
 }) => (
   <div className={clsx(className, styles.root)}>
-    <Paper key={_id} className={styles.component} elevation={9}>
+    <Paper key={id} className={styles.component} elevation={9}>
       <Grid container spacing={3} alignContent='center' justify='center'>
         <Grid item xs={12} sm={6}>
           <div className={styles.photoWrapper}>
@@ -63,7 +63,7 @@ const Component = ({
                 <ShareIcon />
               </IconButton>
               <div className={styles.linkWrapper}>
-                <Link to={`/post/${_id}/`} variant='subtitle1' color='secondary'>
+                <Link to={`/posts/${id}/`} variant='subtitle1' color='third'>
                   <Fab
                     variant='extended'
                     size='small'
@@ -79,7 +79,7 @@ const Component = ({
                 ? (
                   <div className={styles.linkWrapper}>
                     <Link
-                      to={`/post/${_id}/edit`}
+                      to={`/post/${id}/edit`}
                       variant='subtitle1'
                       color='secondary'
                     >
@@ -111,7 +111,7 @@ Component.propTypes = {
   created: PropTypes.string,
   updated: PropTypes.string,
   text: PropTypes.string,
-  _id: PropTypes.string,
+  id: PropTypes.string,
   userStatus: PropTypes.object,
   className: PropTypes.string,
 };
