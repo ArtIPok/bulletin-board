@@ -31,7 +31,7 @@ class Component extends React.Component {
     fetchPost();
   }
   render() {
-    const { loading: { active, error }, className, _id, userStatus, photo, title, created, updated, text, status, price, author, phone, location } = this.props;
+    const { loading: { active, error }, className, post, userStatus } = this.props;
     if (active) {
       return (
         <Paper className={styles.component}>
@@ -50,9 +50,11 @@ class Component extends React.Component {
           <Paper className={styles.component} elevation={9}>
             <Grid container spacing={3} alignContent='center' justify='center'>
               <Grid item xs={12} sm={5}>
-                <div className={styles.photoWrapper}>
-                  <img src={photo} alt={title} />
-                </div>
+                {!!post && (
+                  <div className={styles.photoWrapper}>
+                    <img src={post.photo} alt={post.title} />
+                  </div>
+                )}
                 <CardActions className={styles.actions}>
                   <IconButton aria-label='add to favorites'>
                     <FavoriteIcon />
@@ -64,7 +66,7 @@ class Component extends React.Component {
                     ? (
                       <div className={styles.linkWrapper}>
                         <Link
-                          to={`/post/${_id}/edit`}
+                          to={`/post/${post._id}/edit`}
                           variant='subtitle1'
                           color='secondary'
                         >
@@ -83,45 +85,48 @@ class Component extends React.Component {
                 </CardActions>
               </Grid>
               <Grid item xs={12} sm={7}>
-                <Card className={styles.card}>
-                  <CardHeader
-                    title={title}
-                    className={styles.card__header}
-                    subheader={`Publication date: ${created},last update: ${updated}`}
-                  />
-                  <CardContent className={styles.card__content}>
-                    <Typography
-                      variant='body2'
-                      color='textSecondary'
-                      component='p'
-                      className={styles.text}
-                    >
-                      {text}
-                    </Typography>
-                    <Typography paragraph>
-                      {' '}
-                      <b>Status: </b>
-                      {status}
-                    </Typography>
-                    <Typography paragraph>
-                      {' '}
-                      <b>Price: </b>
-                      {price} EUR
-                    </Typography>
-                    <Typography paragraph>
-                      <b>Author: </b>
-                      {author}
-                    </Typography>
-                    <Typography paragraph>
-                      <b>Phone: </b>
-                      {phone}
-                    </Typography>
-                    <Typography paragraph>
-                      <b>Location: </b>
-                      {location}
-                    </Typography>
-                  </CardContent>
-                </Card>
+                {!!post && (
+                  <Card className={styles.card}>
+                    <CardHeader
+                      title={post.title}
+                      className={styles.card__header}
+                      subheader={`Publication date: ${post.created},last update: ${post.updated}`}
+                    />
+                    <CardContent className={styles.card__content}>
+                      <Typography
+                        variant='body2'
+                        color='textSecondary'
+                        component='p'
+                        className={styles.text}
+                      >
+                        {post.text}
+                      </Typography>
+                      <Typography paragraph>
+                        {' '}
+                        <b>Status: </b>
+                        {post.status}
+                      </Typography>
+                      <Typography paragraph>
+                        {' '}
+                        <b>Price: </b>
+                        {post.price} EUR
+                      </Typography>
+                      <Typography paragraph>
+                        <b>Author: </b>
+                        {post.author}
+                      </Typography>
+                      <Typography paragraph>
+                        <b>Phone: </b>
+                        {post.phone}
+                      </Typography>
+                      <Typography paragraph>
+                        <b>Location: </b>
+                        {post.location}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+
+                )}
               </Grid>
             </Grid>
           </Paper>
@@ -136,18 +141,7 @@ Component.propTypes = {
   fetchPost: PropTypes.func,
   userStatus: PropTypes.bool,
   post: PropTypes.array,
-  photo: PropTypes.string,
-  title: PropTypes.string,
-  created: PropTypes.string,
-  updated: PropTypes.string,
-  text: PropTypes.string,
-  status: PropTypes.string,
-  price: PropTypes.string,
-  author: PropTypes.string,
-  phone: PropTypes.string,
-  location: PropTypes.string,
-  _id: PropTypes.string,
-  loading: PropTypes.string,
+  loading: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({

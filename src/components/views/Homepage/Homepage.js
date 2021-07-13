@@ -88,7 +88,7 @@ Component.propTypes = {
   userStatus: PropTypes.bool,
   posts: PropTypes.array,
   fetchPublishedPosts: PropTypes.func,
-  loading: PropTypes.string,
+  loading: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
